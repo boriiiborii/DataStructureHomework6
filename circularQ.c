@@ -22,7 +22,7 @@ typedef struct {
 QueueType *createQueue();
 int freeQueue(QueueType *cQ);
 bool isEmpty(QueueType *cQ);
-int isFull(QueueType *cQ);
+bool isFull(QueueType *cQ);
 void enQueue(QueueType *cQ, element item);
 void deQueue(QueueType *cQ, element* item);
 void printQ(QueueType *cQ);
@@ -109,19 +109,30 @@ bool isEmpty(QueueType *cQ)
 }
 
 /* complete the function */
-int isFull(QueueType *cQ)
+//bool반환형으로 바꿔줌
+//full인지 아닌지 반환해줌 이걸 가지고 enQueue에서 true일시 아무동작 하지 않고 false일시 insert로직을 실행하도록 했음
+bool isFull(QueueType *cQ)
 {
-   return 0;
+    //리어값 +1시킴. (isEmpty와의 차별점을 두기 위해서)
+    int rear = (cQ->rear + 1) % MAX_QUEUE_SIZE;
+    if (cQ -> front == rear) {
+        return true;
+    }
+    return false;
 }
 
 
 /* complete the function */
+//isEmpty와 Full을 구분하기 위하여 rear은 미리 +1을 하여 실행하도록 하였음
 void enQueue(QueueType *cQ, element item)
 {
- int rear = (cQ->rear + 1) % MAX_QUEUE_SIZE;
-    if (cQ->front == rear) {
-        printf("큐 꽉 참. 이후에 isFull함수 넣어줘야함\n");
-    } else {
+    //리어값 +1시킴. (isEmpty와의 차별점을 두기 위해서)
+    int rear = (cQ->rear + 1) % MAX_QUEUE_SIZE;
+    //여기서 구현했던 isFull을 사용함
+    if (isFull(cQ)) {
+        printf("큐가 꽉 찼네요. 추가 불가입니다 ~");
+    }else {
+        //queue에는 item을 넣고, 리어값은 갱신시키고
         cQ->queue[rear] = item;
         cQ->rear = rear;
     }
