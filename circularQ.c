@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #define MAX_QUEUE_SIZE 4
 
@@ -19,7 +20,7 @@ typedef struct {
 
 QueueType *createQueue();
 int freeQueue(QueueType *cQ);
-int isEmpty(QueueType *cQ);
+bool isEmpty(QueueType *cQ);
 int isFull(QueueType *cQ);
 void enQueue(QueueType *cQ, element item);
 void deQueue(QueueType *cQ, element* item);
@@ -97,10 +98,13 @@ element getElement()
 
 
 /* complete the function */
-int isEmpty(QueueType *cQ)
+//isEmpty의 함수 리턴값을 Bool타입으로 변경한다
+bool isEmpty(QueueType *cQ)
 {
-
-    return 0;
+    if (cQ->front == cQ->rear) {
+        return true;
+    }
+    return false;
 }
 
 /* complete the function */
@@ -129,16 +133,21 @@ void printQ(QueueType *cQ)
 
 	first = (cQ->front + 1)%MAX_QUEUE_SIZE;
 	last = (cQ->rear + 1)%MAX_QUEUE_SIZE;
+    //isEmpty메서드를 프린트할때 사용하여 적용하였습니다.
+    if (isEmpty(cQ)) {
+        printf("큐가 비어있습니다.");
+    }else {
+    printf("Circular Queue : [");
 
-	printf("Circular Queue : [");
+        i = first;
+        while(i != last){
+            printf("%3c", cQ->queue[i]);
+            i = (i+1)%MAX_QUEUE_SIZE;
 
-	i = first;
-	while(i != last){
-		printf("%3c", cQ->queue[i]);
-		i = (i+1)%MAX_QUEUE_SIZE;
-
-	}
-	printf(" ]\n");
+        }
+    printf(" ]\n");
+    }
+	
 }
 
 

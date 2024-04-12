@@ -1,0 +1,2 @@
+
+    if (isEmpty(cQ) {
