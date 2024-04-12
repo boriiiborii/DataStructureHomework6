@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+//bool함수를 적용하기 위해 include
 #include <stdbool.h>
 
 #define MAX_QUEUE_SIZE 4
@@ -117,7 +118,13 @@ int isFull(QueueType *cQ)
 /* complete the function */
 void enQueue(QueueType *cQ, element item)
 {
-	
+ int rear = (cQ->rear + 1) % MAX_QUEUE_SIZE;
+    if (cQ->front == rear) {
+        printf("큐 꽉 참. 이후에 isFull함수 넣어줘야함\n");
+    } else {
+        cQ->queue[rear] = item;
+        cQ->rear = rear;
+    }
 }
 
 /* complete the function */
