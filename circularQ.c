@@ -36,6 +36,7 @@ int main(void)
 	char command;
 
 	do{
+        printf("\n[----- [이화진]  [2020037103] -----]\n");
 		printf("\n-----------------------------------------------------\n");
 		printf("                     Circular Q                   \n");
 		printf("------------------------------------------------------\n");
@@ -123,10 +124,10 @@ bool isFull(QueueType *cQ)
 
 
 /* complete the function */
-//isEmpty와 Full을 구분하기 위하여 rear은 미리 +1을 하여 실행하도록 하였음
+//isEmpty와 Full을 구분하기 위하여 rear은 다음칸으로 이동 하여 실행하도록 하였음
 void enQueue(QueueType *cQ, element item)
 {
-    //리어값 +1시킴. (isEmpty와의 차별점을 두기 위해서)
+    //리어값을 다음칸으로 이동시킴. (isEmpty와의 차별점을 두기 위해서)
     int rear = (cQ->rear + 1) % MAX_QUEUE_SIZE;
     //여기서 구현했던 isFull을 사용함
     if (isFull(cQ)) {
@@ -141,9 +142,11 @@ void enQueue(QueueType *cQ, element item)
 /* complete the function */
 void deQueue(QueueType *cQ, element *item)
 {
+    //큐가 비었는지 isEmpty를 활용하여 확인하고 비었다면 프린트문만 띄우기
     if (isEmpty(cQ)) {
         printf("큐가 비어있어서 삭제할 요소가 없네요\n");
     }else {
+        //비어있지 않다면 front값을 다음칸으로 옮겨서 deQueue시키기
         cQ->front = (cQ->front+1) % MAX_QUEUE_SIZE;
     }
     
