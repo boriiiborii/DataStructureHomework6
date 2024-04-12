@@ -130,7 +130,7 @@ void enQueue(QueueType *cQ, element item)
     int rear = (cQ->rear + 1) % MAX_QUEUE_SIZE;
     //여기서 구현했던 isFull을 사용함
     if (isFull(cQ)) {
-        printf("큐가 꽉 찼네요. 추가 불가입니다 ~");
+        printf("큐가 꽉 찼네요. 추가 불가입니다 ~\n");
     }else {
         //queue에는 item을 넣고, 리어값은 갱신시키고
         cQ->queue[rear] = item;
@@ -141,7 +141,12 @@ void enQueue(QueueType *cQ, element item)
 /* complete the function */
 void deQueue(QueueType *cQ, element *item)
 {
-  
+    if (isEmpty(cQ)) {
+        printf("큐가 비어있어서 삭제할 요소가 없네요\n");
+    }else {
+        cQ->front = (cQ->front+1) % MAX_QUEUE_SIZE;
+    }
+    
 }
 
 
