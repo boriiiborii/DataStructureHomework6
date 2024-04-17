@@ -1,2 +1,1 @@
-
-    if (isEmpty(cQ) {
+getInfix();
