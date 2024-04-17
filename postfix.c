@@ -232,8 +232,37 @@ void reset()
 	evalResult = 0;
 }
 
-void evaluation()
-{
-	/* postfixExp, evalStack을 이용한 계산 */
+void evaluation() {
+    char *exp = postfixExp;
+
+    while (*exp != '\0') {
+        // 피연산자라면
+        if (getToken(*exp) == operand) {
+            evalPush(*exp - '0'); //exp의 숫자 뽑기
+        } else {
+            // 연산자라면
+            int op1 = evalPop();
+            int op2 = evalPop();
+
+            switch (*exp) {
+            case '+':
+                evalPush(op1 + op2);
+                break;
+            case '-':
+                evalPush(op2 - op1); //뒤에서 앞에꺼
+                break;
+            case '*':
+                evalPush(op1 * op2);
+                break;
+            case '/':
+                evalPush(op2 / op1); //뒤에서 앞에꺼
+                break;
+            default:
+                break;
+            }
+        }
+        exp++;
+    }
+    evalResult = evalPop();
 }
 
